@@ -1,0 +1,30 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('profile/<str:username>/', views.profile, name='profile'),
+    path('create-post/', views.create_post, name='create_post'),
+    path('post/<int:post_id>/', views.post_detail, name='post_detail'),
+    path('contact/', views.contact, name='contact'),
+    path('help/', views.help, name='help'),
+    path('faq/', views.faq, name='faq'),
+    path('privacy/', views.privacy, name='privacy'),
+    path('terms/', views.terms, name='terms'),
+    path('about/', views.about, name='about'),
+    path('search/', views.search, name='search'),
+   # path('follow/<str:username>/',views.follow_unfollow, name='follow_unfollow'),
+    #path('logout/', views.logout, name='logout'),
+    path('post/<int:post_id>/delete/',views.delete_post, name='delete_post'),
+    path('post/<int:post_id>/edit/',views.edit_post,name='edit_post'),
+    path('post/<int:post_id>/like/',views.like_post, name='like_post'),
+    path('comment/<int:comment_id>/delete/',views.delete_comment, name='delete_comment'),
+    path('comment/<int:comment_id>/edit/', views.edit_comment, name='edit_comment'),
+    path('post/<int:post_id>/add_comment', views.add_comment, name='add_comment'),
+    path('comment/<int:comment_id>/hide/', views.hide_comment, name='hide_comment'),
+    path('post/<int:post_id>/comment/<int:comment_id>/like/', views.like_comment, name='like_comment'),
+    path('category/<int:category_id>/',views.category_posts, name='category_posts'),
+    path('tag/<int:tag_id>/', views.tag_posts, name= 'tag_posts'),
+    path('accounts/register/', views.register, name='register'),
+    #path('accounts/logout/', views.logout, name='logout'),
+]

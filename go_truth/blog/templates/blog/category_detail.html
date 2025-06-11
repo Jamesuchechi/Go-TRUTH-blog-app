@@ -1,0 +1,83 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ category.name }} - Go Truth{% endblock %}
+{% block content %}
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">{{ category.name }}</h1>
+    {% if posts %}
+        {% for post in posts %}
+            <div class="mb-4 p-4 border rounded">
+                <h2 class="text-xl font-semibold">{{ post.title }}</h2>
+                <div class="prose">{{ post.content|linebreaks }}</div>
+                <small>By {{ post.author.username }} on {{ post.created_at }}</small>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="max-w-full h-auto mt-2">
+                {% endif %}
+                {% if post.video %}
+                    <video controls class="max-w-full h-auto mt-2">
+                        <source src="{{ post.video }}" type="video/mp4">
+                    </video>
+                {% endif %}
+                <a href="{% url 'post_detail' post.pk %}" class="text-blue-500">Read more</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No posts found in this category.</p>
+    {% endif %}
+    <!-- Sidebar -->
+    <div class="sidebar w-1/4 float-left p-4">
+        <h3>Categories</h3>
+        <ul>
+            {% for category in categories %}
+                <li><a href="{% url 'category_posts' category.pk %}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <h3>Tags</h3>
+        <ul>
+            {% for tag in tags %}
+                <li><a href="{% url 'tag_posts' tag.pk %}">{{ tag.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}{% extends 'blog/base.html' %}
+{% block title %}{{ category.name }} - Go Truth{% endblock %}
+{% block content %}
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">{{ category.name }}</h1>
+    {% if posts %}
+        {% for post in posts %}
+            <div class="mb-4 p-4 border rounded">
+                <h2 class="text-xl font-semibold">{{ post.title }}</h2>
+                <div class="prose">{{ post.content|linebreaks }}</div>
+                <small>By {{ post.author.username }} on {{ post.created_at }}</small>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="max-w-full h-auto mt-2">
+                {% endif %}
+                {% if post.video %}
+                    <video controls class="max-w-full h-auto mt-2">
+                        <source src="{{ post.video }}" type="video/mp4">
+                    </video>
+                {% endif %}
+                <a href="{% url 'post_detail' post.pk %}" class="text-blue-500">Read more</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No posts found in this category.</p>
+    {% endif %}
+    <!-- Sidebar -->
+    <div class="sidebar w-1/4 float-left p-4">
+        <h3>Categories</h3>
+        <ul>
+            {% for category in categories %}
+                <li><a href="{% url 'category_posts' category.pk %}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <h3>Tags</h3>
+        <ul>
+            {% for tag in tags %}
+                <li><a href="{% url 'tag_posts' tag.pk %}">{{ tag.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

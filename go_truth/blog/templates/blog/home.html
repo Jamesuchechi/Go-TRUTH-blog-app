@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+{% block title %}Home - Go Truth{% endblock %}
+
+{% block sidebar %}
+    <h3 class="text-xl font-bold mb-4 text-white">Categories</h3>
+    <ul class="space-y-2 text-gray-200">
+        {% for category in categories %}
+            <li><a href="{% url 'category_posts' category_id=category.id %}" class="flex items-center gap-2 hover:text-gray-300"><span class="w-2 h-2 bg-blue-400 rounded-full"></span>{{ category.name }}</a></li>
+        {% empty %}
+            <li>No categories available.</li>
+        {% endfor %}
+    </ul>
+    <h3 class="text-xl font-bold mt-6 mb-4 text-white">Tags</h3>
+    <ul class="space-y-2 text-gray-200">
+        {% for tag in tags %}
+            <li><a href="{% url 'tag_posts' tag_id=tag.id %}" class="flex items-center gap-2 hover:text-gray-300"><span class="w-2 h-2 bg-purple-400 rounded-full"></span>{{ tag.name }}</a></li>
+        {% empty %}
+            <li>No tags available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <h1 class="text-3xl font-bold text-center mb-6 text-white">Welcome to Go Truth</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for post in posts %}
+                <div class="bg-purple-800 p-6 rounded-lg shadow-lg text-white text-center">
+                    <h2 class="text-xl font-semibold mb-2">{{ post.title }}</h2>
+                    <p class="mb-4">{{ post.content|truncatewords:20|linebreaks }}</p>
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover rounded mb-2">
+                    {% endif %}
+                    {% if post.video %}
+                        <video controls class="w-full h-48 object-cover rounded mb-2">
+                            <source src="{{ post.video.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    {% endif %}
+                    <p class="text-sm text-gray-300">By: {{ post.author.username }} | {{ post.created_at|date:"F d, Y" }}</p>
+                    <a href="{% url 'post_detail' post_id=post.pk %}" class="btn-primary mt-4 inline-block">Read More</a>
+                </div>
+            {% empty %}
+                <p class="text-center text-gray-300">No posts available.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

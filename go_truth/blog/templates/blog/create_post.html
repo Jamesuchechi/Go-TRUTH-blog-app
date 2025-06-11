@@ -1,0 +1,110 @@
+{% extends 'blog/base.html' %}
+{% block title %}Create Post - Go Truth{% endblock %}
+{% block content %}
+<section class="hero" id="create-hero" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)); padding-bottom: 2rem;">
+    <div class="hero-container flex flex-col items-center text-center">
+        <div class="hero-content" style="animation: slideInLeft 1s ease-out;">
+            <h1 class="hero-title text-4xl font-extrabold mb-4" style="background: linear-gradient(45deg, #2d3748, #a0aec0); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);">
+                Create Your Post
+            </h1>
+            <p class="hero-subtitle text-lg text-gray-200 mb-6 max-w-md">
+                Craft your story with Okpara James Uchechi’s vision—share reliable insights with the world!
+            </p>
+            <div class="relative w-16 h-16 mb-6">
+                <svg class="w-full h-full" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="10" />
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#6b46c1" stroke-width="10" stroke-dasharray="282.74" stroke-dashoffset="70.685" class="animate-progress" />
+                    <text x="50" y="50" text-anchor="middle" dy="0.3em" fill="#4c51bf" font-size="20" font-weight="bold">5/6</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features py-12" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));">
+    <div class="features-container">
+        <div class="bg-white/80 p-6 rounded-lg shadow-lg border border-purple-200/30 max-w-2xl mx-auto">
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="{{ form.title.id_for_label }}" class="block text-lg font-medium mb-2" style="background: linear-gradient(90deg, #6b46c1, #4c51bf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">Title</label>
+                    <input type="text" name="title" id="{{ form.title.id_for_label }}" value="{{ form.title.value|default:'' }}" class="w-full p-3 border border-purple-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white/90" />
+                    {% if form.title.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.title.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.content.id_for_label }}" class="block text-lg font-medium mb-2" style="background: linear-gradient(90deg, #6b46c1, #4c51bf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">Content</label>
+                    <textarea name="content" id="{{ form.content.id_for_label }}" class="w-full p-3 border border-purple-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white/90 h-40 resize-y" >{{ form.content.value|default:'' }}</textarea>
+                    {% if form.content.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.content.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.categories.id_for_label }}" class="block text-lg font-medium mb-2" style="background: linear-gradient(90deg, #6b46c1, #4c51bf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">Categories</label>
+                    <select name="categories" id="{{ form.categories.id_for_label }}" multiple class="w-full p-3 border border-purple-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white/90">
+                        {% for value, label in form.categories.field.choices %}
+                            <option value="{{ value }}" {% if value in form.categories.value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.categories.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.categories.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.tags.id_for_label }}" class="block text-lg font-medium mb-2" style="background: linear-gradient(90deg, #6b46c1, #4c51bf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">Tags</label>
+                    <select name="tags" id="{{ form.tags.id_for_label }}" multiple class="w-full p-3 border border-purple-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white/90">
+                        {% for value, label in form.tags.field.choices %}
+                            <option value="{{ value }}" {% if value in form.tags.value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.tags.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.tags.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.image.id_for_label }}" class="block text-lg font-medium mb-2" style="background: linear-gradient(90deg, #6b46c1, #4c51bf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">Image</label>
+                    <input type="file" name="image" id="{{ form.image.id_for_label }}" class="w-full p-3 border border-purple-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white/90" />
+                    {% if form.image.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.image.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+                <div class="mb-6">
+                    <label for="{{ form.video.id_for_label }}" class="block text-lg font-medium mb-2" style="background: linear-gradient(90deg, #6b46c1, #4c51bf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">Video</label>
+                    <input type="file" name="video" id="{{ form.video.id_for_label }}" class="w-full p-3 border border-purple-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white/90" />
+                    {% if form.video.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.video.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn-primary text-lg px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors w-full">
+                    Create Post
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<a href="{% url 'home' %}" class="mt-6 inline-block text-blue-500 hover:text-blue-700 font-medium transition-colors mx-auto block text-center">Back to Home</a>
+
+<script>
+    // Custom animation for progress circle
+    const circle = document.querySelector('.animate-progress');
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 1;
+        circle.style.strokeDashoffset = 282.74 - (progress * 282.74 / 100);
+        if (progress >= 83.33) clearInterval(interval); // 5/6 steps = 83.33%
+    }, 20);
+</script>
+{% endblock %}
+
+{% block sidebar %}
+<div class="col-span-1 bg-white/80 p-4 rounded-lg shadow-lg backdrop-blur-sm">
+    <h3 class="text-xl font-bold text-gray-800 mb-4">Post Tips</h3>
+    <ul class="space-y-4 text-gray-600">
+        <li class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full"></span>Use clear titles to attract readers.</li>
+        <li class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full"></span>Add images or videos for engagement.</li>
+        <li class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full"></span>Choose relevant categories and tags.</li>
+    </ul>
+</div>
+{% endblock %}

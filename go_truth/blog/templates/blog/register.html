@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Register - Go Truth{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="bg-purple-800 p-6 rounded-lg shadow-lg text-white text-center mx-auto max-w-md">
+            <h1 class="text-2xl font-bold mb-4">Register</h1>
+            <form method="post" class="text-left">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn-primary mt-4">Register</button>
+            </form>
+            <p class="mt-4">Already have an account? <a href="{% url 'login' %}" class="text-blue-300 hover:underline">Log in</a>.</p>
+        </div>
+    </div>
+{% endblock %}

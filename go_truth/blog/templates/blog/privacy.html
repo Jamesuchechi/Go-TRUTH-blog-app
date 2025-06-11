@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% block title %}Privacy Policy - Go Truth{% endblock %}
+{% block content %}
+<div class="container mx-auto p-4">
+    <div class="grid grid-cols-4 gap-4">
+        <!-- Sidebar (empty by default, can be overridden) -->
+        <div class="col-span-1 bg-white p-4 rounded-lg shadow-lg">
+            {% block sidebar %}{% endblock %}
+        </div>
+        <!-- Privacy Content -->
+        <div class="col-span-3">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Privacy Policy</h1>
+            <p class="text-gray-700 mb-6">
+                At Go Truth, we prioritize your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, disclose, and safeguard your data when you use our platform. By accessing or using Go Truth, you agree to the practices described herein.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Information We Collect</h2>
+                <p class="text-gray-600">
+                    We collect information you provide directly, such as your name, email, and content you post. We also gather usage data, including IP addresses and browsing activity, to enhance your experience.
+                </p>
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-4">How We Use Your Information</h2>
+                <p class="text-gray-600">
+                    Your data is used to provide, maintain, and improve our services, ensure security, and communicate with you about updates or support. We do not sell your information to third parties.
+                </p>
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-4">Data Security</h2>
+                <p class="text-gray-600">
+                    We employ industry-standard measures to protect your data, including encryption and secure servers. However, no online platform is 100% secure, so we encourage you to use strong passwords.
+                </p>
+                <p class="mt-6 text-gray-600">
+                    For more details or to request data deletion, contact us at <a href="{% url 'contact' %}" class="text-blue-500 hover:underline">support@gotruth.com</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+{% block title %}About Us - Go Truth{% endblock %}
+{% block content %}
+<section class="hero" id="about-hero" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)); padding-bottom: 2rem;">
+    <div class="hero-container flex flex-col items-center text-center">
+        <div class="hero-content" style="animation: slideInLeft 1s ease-out;">
+            <h1 class="hero-title text-5xl font-extrabold mb-4" style="background: linear-gradient(45deg, #2d3748, #a0aec0); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);">
+                About Go Truth
+            </h1>
+            <p class="hero-subtitle text-xl text-gray-200 mb-6 leading-loose max-w-2xl">
+                Discover the mission behind Go Truth, driven by Okpara James Uchechi’s vision to deliver reliable, fast, and impactful information to a global community.
+            </p>
+            <div class="hero-visual" style="animation: slideInRight 1s ease-out;">
+                <div class="w-32 h-32 bg-gradient-to-br from-purple-500 via-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                    <svg class="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0-1.1.9-2 2-2s2 .9 2 2-2 4-2 4-2-2.9-2-4z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 17c0 1.1-.9 2-2 2s-2-.9-2-2 2-4 2-4 2 2.9 2 4z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features py-12" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));">
+    <div class="container mx-auto p-4">
+        <div class="grid grid-cols-4 gap-6">
+            <!-- Sidebar will be inherited from base.html -->
+            <div class="col-span-1 bg-white/80 p-4 rounded-lg shadow-lg backdrop-blur-sm">
+                <!-- Sidebar content will come from base.html -->
+            </div>
+            <!-- About Content -->
+            <div class="col-span-3">
+                <div class="prose leading-relaxed p-6 rounded-lg shadow-lg border-l-4 border-purple-500 animate-fade-in" style="background: linear-gradient(90deg, #6b46c1, #4c51bf); color: #ffffff; font-size: 1.1rem;">
+                    <h1 class="text-3xl font-bold mb-4">About Us</h1>
+                    <p class="mb-6">
+                        Welcome to <strong>Go Truth</strong>, a revolutionary platform born from the visionary mind of <strong>Okpara James Uchechi</strong>. This is more than just a website—it’s a movement, a beacon of hope in a world often clouded by misinformation. James, with an unwavering passion for truth and reliability, founded Go Truth with a bold vision: to create a global community where people can access the right information, swiftly and from trustworthy sources. Imagine a digital oasis where curiosity meets credibility, where every click unveils a story backed by integrity—this is the world James is building, and you’re invited to be part of it!
+                    </p>
+                </div>
+                <div class="prose leading-relaxed p-6 mt-6 rounded-lg shadow-lg border-l-4 border-purple-500 animate-fade-in" style="background: linear-gradient(90deg, #6b46c1, #4c51bf); color: #ffffff; font-size: 1.1rem;">
+                    <h2 class="text-xl font-semibold mb-4">Our Mission</h2>
+                    <p class="mb-6">
+                        At Go Truth, our mission is to empower individuals with accurate, timely information that shapes informed decisions. We believe in the power of knowledge to transform lives, communities, and even nations. James’s dream is to dismantle the barriers of doubt and uncertainty, replacing them with a robust network of verified content creators and eager learners. This isn’t just about news—it’s about fostering a culture of trust in an era where truth is a rare commodity.
+                    </p>
+                    <h2 class="text-xl font-semibold mb-4">Our Vision</h2>
+                    <p class="mb-6">
+                        Picture a world where misinformation fades into oblivion, where every individual—young or old, near or far—has instant access to reliable insights. Okpara James Uchechi envisions Go Truth as that catalyst, a platform that not only delivers information but elevates it to an art form. With cutting-edge technology and a community-driven approach, we aim to make this vision a reality, turning every user into a guardian of truth. Join us on this exhilarating journey to redefine how the world connects with knowledge!
+                    </p>
+                    <h2 class="text-xl font-semibold mb-4">Meet the Founder</h2>
+                    <p class="mb-6">
+                        Okpara James Uchechi is not just a name—he’s the heartbeat behind Go Truth. A visionary with a deep-rooted belief in the transformative power of accurate information, James hails from Nigeria, bringing a unique perspective to the global stage. His journey is one of resilience and innovation, driven by the desire to create a legacy of trust. With every feature, every post, and every interaction on Go Truth, you’re witnessing the realization of his dream—a dream that invites you to contribute, explore, and grow.
+                    </p>
+                </div>
+                <p class="mt-6 text-gray-600">
+                    Ready to be part of this revolution? Explore our platform, connect with us via <a href="{% url 'contact' %}" class="text-blue-500 hover:underline">Contact Us</a>, and let’s shape the future of truth together!
+                </p>
+                <div class="mt-6 text-center">
+                    <a href="{% url 'home' %}" class="btn-primary text-lg px-6 py-3 mr-4">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

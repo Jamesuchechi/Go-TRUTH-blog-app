@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% block title %}Confirm Delete Comment{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Confirm Delete Comment</h1>
+    <p>Are you sure you want to delete your comment on "{{ post.title }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Yes, Delete</button>
+        <a href="{% url 'post_detail' post.id %}" class="text-blue-500 ml-4">Cancel</a>
+    </form>
+</div>
+{% endblock %}

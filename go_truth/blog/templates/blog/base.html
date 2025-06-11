@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Go Truth{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, rgba(45, 55, 72, 0.9), rgba(26, 32, 44, 0.95));
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #6b46c1, #4c51bf);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: slideInLeft 1s ease-out;
+            position: relative;
+        }
+        .navbar a {
+            color: #ffffff;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #e2e8f0;
+        }
+        .content {
+            min-height: calc(100vh - 4rem);
+            padding: 2rem;
+            display: flex;
+        }
+        .sidebar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 25%;
+            animation: slideInRight 1s ease-out;
+        }
+        .main-content {
+            width: 75%;
+            padding-left: 2rem;
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.5s ease-out;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #6b46c1, #4c51bf);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #5a38a5, #3b429f);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .footer {
+            background: linear-gradient(90deg, #6b46c1, #4c51bf);
+            padding: 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            animation: fade-in 0.5s ease-out;
+        }
+        .footer a {
+            color: #ffffff;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: #e2e8f0;
+        }
+
+        /* Global Input Styling */
+        input[type="text"],
+        input[type="email"],
+        input[type="url"],
+        textarea,
+        select {
+            background-color: #4b5b8d;
+            color: #ffffff !important;
+            border: 1px solid #e2e8f0;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 0.5rem;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="url"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #a0aec0;
+            background-color: #3d4a6a;
+        }
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder,
+        input[type="url"]::placeholder,
+        textarea::placeholder,
+        select::placeholder {
+            color: #e2e8f0;
+        }
+
+        /* Mobile Menu Styling */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #ffffff;
+            transition: transform 0.3s ease;
+        }
+        .menu-toggle:hover {
+            transform: scale(1.1);
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+        }
+        .nav-menu a,
+        .nav-menu form {
+            margin: 0 1rem;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                background: linear-gradient(90deg, #6b46c1, #4c51bf);
+                padding: 1rem;
+                border-radius: 0.375rem;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                width: 200px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .nav-menu.active {
+                display: flex;
+                flex-direction: column;
+                animation: slideDown 0.3s ease-out;
+            }
+            .nav-menu a,
+            .nav-menu form {
+                margin: 0.5rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .logo {
+                margin: 0;
+            }
+            
+            /* Mobile content adjustments */
+            .content {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .sidebar {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            .main-content {
+                width: 100%;
+                padding-left: 0;
+            }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Smaller mobile devices */
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.75rem;
+            }
+            .nav-menu {
+                right: 0.5rem;
+                width: calc(100vw - 2rem);
+                max-width: 250px;
+            }
+            .content {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{% url 'home' %}" class="text-xl font-bold">Go Truth</a>
+        </div>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+        <div class="nav-menu">
+            <a href="{% url 'home' %}">Home</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' username=request.user.username %}" class="profile-link">Profile</a>
+                <form method="post" action="{% url 'logout' %}" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-primary">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="profile-link">Profile</a>
+                <a href="{% url 'register' %}" class="btn-primary">Register</a>
+                <a href="{% url 'login' %}" class="btn-secondary">Login</a>
+            {% endif %}
+            <a href="{% url 'create_post' %}" class="btn-primary">Create Post</a>
+            <a href="{% url 'search' %}" class="btn-primary">Search</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <aside class="sidebar">
+            {% block sidebar %}
+            <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+            <ul class="space-y-4 text-gray-200">
+                <li><a href="{% url 'home' %}" class="flex items-center gap-2 hover:text-gray-300"><span class="w-2 h-2 bg-blue-400 rounded-full"></span>Home</a></li>
+                <li><a href="{% url 'search' %}" class="flex items-center gap-2 hover:text-gray-300"><span class="w-2 h-2 bg-purple-400 rounded-full"></span>Search</a></li>
+                <li><a href="{% url 'create_post' %}" class="flex items-center gap-2 hover:text-gray-300"><span class="w-2 h-2 bg-green-400 rounded-full"></span>Create Post</a></li>
+                <li><a href="{% url 'about' %}" class="flex items-center gap-2 hover:text-gray-300"><span class="w-2 h-2 bg-yellow-400 rounded-full"></span>About</a></li>
+            </ul>
+            {% endblock %}
+        </aside>
+
+        <main class="main-content animate-fade-in">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'help' %}">Help</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'terms' %}">Terms</a>
+            <a href="{% url 'privacy' %}">Privacy</a>
+            <a href="{% url 'faq' %}">FAQ</a>
+        </div>
+        <p class="mt-2">© 2025 Go Truth. All rights reserved. | Created by Okpara James Uchechi</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+
+                // Close menu when window is resized to desktop
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% extends 'blog/base.html' %}
+{% block title %}Search Results - Go Truth{% endblock %}
+{% block content %}
+<section class="hero" id="search-hero" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)); padding-bottom: 2rem;">
+    <div class="hero-container flex flex-col items-center text-center">
+        <div class="hero-content" style="animation: slideInLeft 1s ease-out;">
+            <h1 class="hero-title text-4xl font-extrabold mb-4" style="background: linear-gradient(45deg, #4a5568, #9333ea); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);">
+                Search the Truth
+            </h1>
+            <p class="hero-subtitle text-lg text-gray-200 mb-6 max-w-md">
+                Find reliable insights with Okpara James Uchechi’s vision—explore posts instantly!
+            </p>
+            <div class="relative w-16 h-16 mb-6 animate-pulse-slow">
+                <svg class="w-full h-full" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#e2e8f0" stroke-width="8" />
+                    <path d="M70 70 L85 85" fill="none" stroke="#9333ea" stroke-width="6" class="animate-search" />
+                </svg>
+            </div>
+            <form method="get" action="{% url 'search' %}" class="w-full max-w-lg">
+                <div class="flex">
+                    <input type="text" name="q" value="{{ query|default:'' }}" class="w-full p-3 border border-purple-200 rounded-l-lg focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400" placeholder="Search posts...">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded-r-lg hover:bg-blue-600 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="features py-12" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));">
+    <div class="features-container">
+        <h2 class="section-title text-3xl font-extrabold mb-6" style="background: linear-gradient(45deg, #4a5568, #9333ea); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+            Search Results
+        </h2>
+        <div class="features-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% if posts %}
+                {% for post in posts %}
+                    <div class="feature-card bg-white/80 p-5 rounded-lg shadow-md border border-purple-200/30 hover:shadow-lg hover:scale-105 transition-transform duration-300">
+                        <a href="{% url 'post_detail' post.pk %}" class="feature-title text-xl font-semibold text-gray-800 hover:text-blue-600 mb-2">{{ post.title }}</a>
+                        <p class="feature-description text-gray-700 mb-2">
+                            <strong>By: </strong>
+                            <a href="{% url 'user_profile' username=post.author.username %}" class="text-blue-500 hover:underline">{{ post.author.username }}</a>
+                            <span class="text-gray-500 ml-2">{{ post.created_at|date:'F d, Y' }}</span>
+                        </p>
+                        <div class="prose text-gray-700 mb-3 leading-relaxed">{{ post.content|truncatewords:30 }}</div>
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="max-w-full h-24 object-cover rounded-lg mb-2 shadow-sm">
+                        {% endif %}
+                        {% if post.video %}
+                            <video controls class="max-w-full h-24 object-cover rounded-lg mb-2 shadow-sm">
+                                <source src="{{ post.video.url }}" type="video/mp4">
+                            </video>
+                        {% endif %}
+                        <div class="flex justify-between items-center text-sm">
+                            <p>Likes: <span class="font-bold text-green-600">{{ post.like_count }}</span></p>
+                            {% if user.is_authenticated and post.author == user %}
+                                <div>
+                                    <a href="{% url 'edit_post' post_id=post.pk %}" class="text-blue-500 hover:text-blue-700 mr-2">Edit</a>
+                                    <a href="{% url 'delete_post' post_id=post.pk %}" class="text-red-500 hover:text-red-700">Delete</a>
+                                </div>
+                            {% endif %}
+                            <a href="{% url 'like_post' post_id=post.pk %}" class="text-blue-500 hover:text-blue-700">
+                                {% if user in post.likes.all %}Unlike{% else %}Like{% endif %}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-gray-600 text-lg text-center col-span-full">No posts found for '{{ query }}'.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<a href="{% url 'home' %}" class="mt-6 inline-block text-blue-500 hover:text-blue-700 font-medium transition-colors mx-auto block text-center">Back to Home</a>
+
+{% endblock %}
+
+{% block sidebar %}
+<div class="col-span-1 bg-white/80 p-4 rounded-lg shadow-lg backdrop-blur-sm">
+    <h3 class="text-xl font-bold text-gray-800 mb-4">Search Filters</h3>
+    <ul class="space-y-4 text-gray-600">
+        <li><a href="?q={{ query }}&sort=latest" class="flex items-center gap-2 text-blue-500 hover:text-blue-700"><span class="w-2 h-2 bg-blue-500 rounded-full"></span>Latest</a></li>
+        <li><a href="?q={{ query }}&sort=popular" class="flex items-center gap-2 text-purple-500 hover:text-purple-700"><span class="w-2 h-2 bg-purple-500 rounded-full"></span>Popular</a></li>
+    </ul>
+</div>
+{% endblock %}

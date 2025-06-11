@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+{% block title %}FAQ - Go Truth{% endblock %}
+{% block content %}
+<div class="container mx-auto p-4">
+    <div class="grid grid-cols-4 gap-4">
+        <!-- Sidebar (empty by default, can be overridden) -->
+        <div class="col-span-1 bg-white p-4 rounded-lg shadow-lg">
+            {% block sidebar %}{% endblock %}
+        </div>
+        <!-- FAQ Content -->
+        <div class="col-span-3">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h1>
+            <p class="text-gray-700 mb-6">
+                Welcome to the Go Truth FAQ section! Here, we’ve compiled a list of the most common questions from our community to help you navigate our platform with ease. If your question isn’t answered here, don’t hesitate to contact us via our <a href="{% url 'contact' %}" class="text-blue-500 hover:underline">Contact Us</a> page.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">General Questions</h2>
+                <div class="mb-4">
+                    <h3 class="font-semibold text-gray-700">What is Go Truth?</h3>
+                    <p class="text-gray-600">Go Truth is a platform dedicated to delivering accurate, reliable information to users worldwide, created by Okpara James Uchechi to foster a community of truth-seekers.</p>
+                </div>
+                <div class="mb-4">
+                    <h3 class="font-semibold text-gray-700">How do I sign up?</h3>
+                    <p class="text-gray-600">Visit the homepage, click 'Create Post' or 'Profile', and follow the registration prompts to join our community.</p>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-4">Technical Support</h2>
+                <div class="mb-4">
+                    <h3 class="font-semibold text-gray-700">Why can’t I post content?</h3>
+                    <p class="text-gray-600">Ensure you’re logged in and have the necessary permissions. Check file sizes for images/videos and contact support if issues persist.</p>
+                </div>
+                <div class="mb-4">
+                    <h3 class="font-semibold text-gray-700">How do I report a problem?</h3>
+                    <p class="text-gray-600">Use the 'Contact Us' page to submit a detailed report, and our team will assist you promptly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

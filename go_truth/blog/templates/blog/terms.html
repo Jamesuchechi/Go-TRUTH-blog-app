@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% block title %}Terms of Service - Go Truth{% endblock %}
+{% block content %}
+<div class="container mx-auto p-4">
+    <div class="grid grid-cols-4 gap-4">
+        <!-- Sidebar (empty by default, can be overridden) -->
+        <div class="col-span-1 bg-white p-4 rounded-lg shadow-lg">
+            {% block sidebar %}{% endblock %}
+        </div>
+        <!-- Terms Content -->
+        <div class="col-span-3">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Terms of Service</h1>
+            <p class="text-gray-700 mb-6">
+                Welcome to Go Truth! These Terms of Service govern your use of our platform. By accessing or using Go Truth, you agree to comply with these terms. Please read them carefully to understand your rights and responsibilities.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">User Conduct</h2>
+                <p class="text-gray-600">
+                    You agree not to post illegal, harmful, or misleading content. Respect other users and adhere to community guidelines.
+                </p>
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-4">Account Responsibility</h2>
+                <p class="text-gray-600">
+                    You are responsible for maintaining the confidentiality of your account and password. Notify us immediately of any unauthorized use.
+                </p>
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-4">Termination</h2>
+                <p class="text-gray-600">
+                    We reserve the right to terminate or suspend accounts that violate these terms, at our sole discretion.
+                </p>
+                <p class="mt-6 text-gray-600">
+                    For disputes or clarifications, contact us at <a href="{% url 'contact' %}" class="text-blue-500 hover:underline">support@gotruth.com</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
